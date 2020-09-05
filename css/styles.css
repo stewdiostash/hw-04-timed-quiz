@@ -1,0 +1,114 @@
+
+
+/* Typography */
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+}
+
+h1 {
+    font-size: 54px;
+}
+
+h2 {
+    font-size: 44px;
+}
+
+h3 {
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 44px;
+    margin-bottom: 40px;
+}
+
+h4 {
+    font-size: 22px;
+}
+
+p {
+    font-size: 18px;
+}
+
+li {
+    font-size: 24px;
+}
+
+/* Flexbox */
+
+Header,
+Section,
+#quiz-content,
+#answer-list,
+Footer {
+    Display: flex;
+}
+
+Section,
+#answer-list {
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+Header {
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* General Styling */
+
+li {
+    background: #222222;
+    padding: 24px;
+    margin-bottom: 8px;
+    border-radius: 3px;
+}
+
+
+/* Grid */
+
+header {
+    grid-area: header;
+}
+
+#quiz-content {
+    grid-area: quiz-content;
+}
+
+footer {
+    grid-area: footer;
+}
+
+body {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 14fr 1fr;
+    grid-template-rows: 160px 60vh 20vh;
+    grid-template-areas:
+        "... header ..."
+        "... quiz-content ..."
+        "footer footer footer";
+    background-color: black;
+    color: white;
+}
+
+/* breakpoints */
+
+@media only screen and (min-width: 768px) {
+    body {
+        grid-template-columns: 1fr 600px 1fr;
+        grid-template-rows: 160px 60vh 20vh;
+        grid-template-areas:
+            "header header header"
+            "... quiz-content ..."
+            "footer footer footer";
+        background-color: black;
+        color: white;
+    }
+
+    header {
+        padding: 40px;
+    }
+
+}
