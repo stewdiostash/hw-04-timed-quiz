@@ -1,4 +1,7 @@
-
+body {
+    background-color: black;
+    color: white;
+}
 
 /* Typography */
 
@@ -31,21 +34,32 @@ p {
 }
 
 li {
-    font-size: 24px;
+    font-size: 21px;
 }
+
+
+/* General Styling */
+
+li {
+    background: rgba(255, 255, 255, 0.9);
+    color: black;
+    padding: 24px;
+    margin-bottom: 8px;
+    border-radius: 3px;
+}
+
 
 /* Flexbox */
 
 Header,
 Section,
-#quiz-content,
-#answer-list,
+#answer-space,
 Footer {
     Display: flex;
 }
 
 Section,
-#answer-list {
+#answer-space {
     flex-direction: column;
     justify-content: flex-start;
 }
@@ -56,24 +70,14 @@ Header {
 }
 
 
-/* General Styling */
-
-li {
-    background: #222222;
-    padding: 24px;
-    margin-bottom: 8px;
-    border-radius: 3px;
-}
-
-
 /* Grid */
 
 header {
     grid-area: header;
 }
 
-#quiz-content {
-    grid-area: quiz-content;
+section {
+    grid-area: section;
 }
 
 footer {
@@ -87,10 +91,8 @@ body {
     grid-template-rows: 160px 60vh 20vh;
     grid-template-areas:
         "... header ..."
-        "... quiz-content ..."
+        "... section ..."
         "footer footer footer";
-    background-color: black;
-    color: white;
 }
 
 /* breakpoints */
@@ -101,10 +103,8 @@ body {
         grid-template-rows: 160px 60vh 20vh;
         grid-template-areas:
             "header header header"
-            "... quiz-content ..."
+            "... section ..."
             "footer footer footer";
-        background-color: black;
-        color: white;
     }
 
     header {
