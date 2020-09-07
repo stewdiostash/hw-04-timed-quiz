@@ -1,6 +1,24 @@
 var bg = document.querySelector("body");
 var questionSpace = document.getElementById("question-space");
 var answerSpace = document.getElementById("answer-space");
+var timer = document.getElementById("timer");
+var secondsLeft = 60;
+
+function setTime() {
+    var timerInterval = setInterval(function() {
+      secondsLeft--;
+      timer.textContent = secondsLeft;
+  
+      if(secondsLeft === 0) {
+        clearInterval(timerInterval);
+        // sendMessage();
+      }
+  
+    }, 1000);
+  }
+
+  setTime()
+
 
 var quizIndex = 0;
 
@@ -74,16 +92,3 @@ answerSpace.addEventListener("click", function(event){
     };
 });
 
-function wait(ms){
-    var start = new Date().getTime();
-    var end = start;
-    while(end < start + ms) {
-      end = new Date().getTime();
-   }
- }
-
-//  wait(7000)
-
-console.log(questionContent[0].answer)
-
-// "#24FF6F"

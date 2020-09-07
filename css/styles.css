@@ -7,7 +7,7 @@ body {
 
 body {
     font-family: 'Inter', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 h1 {
@@ -16,11 +16,12 @@ h1 {
 
 h2 {
     font-size: 44px;
+    font-weight: 200;
+    text-align: center;
 }
 
 h3 {
     font-size: 34px;
-    font-weight: 500;
     line-height: 44px;
     margin-bottom: 40px;
 }
@@ -46,6 +47,10 @@ li {
     padding: 24px;
     margin-bottom: 8px;
     border-radius: 3px;
+}
+
+#timer-box {
+    width: 100px;
 }
 
 
