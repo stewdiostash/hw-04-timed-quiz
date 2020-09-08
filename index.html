@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Coding Quiz</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/reset.css">
@@ -30,7 +30,6 @@
             <button type="button">
                 Start quiz
             </button>
-
         </section>
         <section id="quiz-screen">
             <div id="question-space">
@@ -40,10 +39,33 @@
             </ul>
         </section>
         <section id="final-score-screen">
-
+            <h2>
+                Quiz completed
+            </h2>
+            <h4>
+                Your final score is <span id="final-score-span"></span>
+            </h4>
+            <form id="final-score-form">
+                <label for="initials-input">Enter initials</label><br>
+                <input type="text" id="initials-input" name="initials-input"><br>
+                <input type="submit" value="Submit">
+            </form>
         </section>
         <section id="high-score-screen">
+            <h2>
+                High Scores
+            </h2>
+            <div id="score-list">
 
+            </div>
+            <div class="button-row">
+                <button type="button">
+                    Start again
+                </button>
+                <button type="button">
+                    Clear highscores
+                </button>
+            </div>
         </section>
         <footer>
     

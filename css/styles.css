@@ -58,8 +58,8 @@ li {
 }
 
 button {
-    margin-top: 60px;
-    width: 160px;
+    margin: 60px 10px 0 0;
+    width: 200px;
     height: 48px;
     font-size: 21px;
     font-weight: 400;
@@ -71,6 +71,7 @@ button {
 Header,
 Section,
 #answer-space,
+.button-row
 Footer {
     Display: flex;
 }

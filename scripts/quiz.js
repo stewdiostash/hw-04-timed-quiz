@@ -4,19 +4,27 @@ var answerSpace = document.getElementById("answer-space");
 var quizIndex = 0;
 var timer = document.getElementById("timer");
 var secondsLeft = 61;
+var timerStop = false;
 var startButton = document.querySelector("button");
+var finalScoreForm = document.getElementById("final-score-form");
+var initialsInput = document.getElementById("initials-input");
 
 var startScreen = document.getElementById("start-screen");
 var quizScreen = document.getElementById("quiz-screen");
 var finalScoreScreen = document.getElementById("final-score-screen");
 var highScoreScreen = document.getElementById("high-score-screen");
+var finalScoreSpan = document.getElementById("final-score-span")
+
+var initials;
+var score;
+var highScoresList = [];
 
 var questionContent = [
     { 
         question: "Arrays in JavaScript can be used to store:",
         choices: [
             "strings",
-            "srrays",
+            "arrays",
             "objects",
             "other arrays",
             "all of the above",
@@ -55,28 +63,40 @@ var questionContent = [
     },
 ];
 
-quizScreen.style.display = "none";
-finalScoreScreen.style.display = "none";
-highScoreScreen.style.display = "none";
+start();
+
+function start(){
+    startScreen.style.display = "flex";
+    quizScreen.style.display = "none";
+    finalScoreScreen.style.display = "none";
+    highScoreScreen.style.display = "none";
+}
+
+startButton.addEventListener("click", function(){
+    startScreen.style.display = "none";
+    quizScreen.style.display = "flex";
+    finalScoreScreen.style.display = "none";
+    highScoreScreen.style.display = "none";
+    newQuestion();
+    setTime(); 
+});
 
 function setTime() {
     var timerInterval = setInterval(function() {
       secondsLeft--;
       timer.textContent = secondsLeft;
-  
-      if(secondsLeft === 0) {
+
+      if(timerStop){
         clearInterval(timerInterval);
+        console.log(secondsLeft);
+        score = secondsLeft;
+        } else if (secondsLeft === 0) {
+        clearInterval(timerInterval);
+        score = secondsLeft;
         // sendMessage();
-      } 
+        } 
     }, 1000);
   }
-
-startButton.addEventListener("click", function(){
-    startScreen.style.display = "none";
-    quizScreen.style.display = "flex";
-    newQuestion();
-    setTime(); 
-})
 
 
 // Call questions
@@ -88,41 +108,62 @@ function newQuestion() {
     answerSpace.innerHTML = "";
     for (var i = 0; i < currentQuestion.choices.length; i++) {
         var answer = document.createElement('li');
-        answer.setAttribute("value", currentQuestion.choices[i]);
+        // answer.setAttribute("value", currentQuestion.choices[i]);
         answer.textContent = currentQuestion.choices[i];
         // answer.onclick = answerClick;
         answerSpace.append(answer);
     }
 }
 
-function finalScore() {
-    
-}
-
-
-
-
-
-// Check answerClick
-    // Compare with correct answer in array
-    // Add 1 to quiz index
-    // Subtract time from clock if incorrect
-    // If quizIndex < 3, newQuestion();
-    // If quizIndex > 3, show score
-
-
-
 answerSpace.addEventListener("click", function(event){
     if  (event.target.matches('li')) {
         if  (event.target.textContent === questionContent[quizIndex].answer) {
             bg.style.background = "#12e095";
+            
         }
         if (event.target.textContent !== questionContent[quizIndex].answer) {
             bg.style.background = "#ff564a";
             // TODO: subtract 15s from timer
+            // timer.textContent = secondsLeft - 10;
         }
+    }
+    if  (quizIndex < questionContent.length - 1) {
         quizIndex++;
         newQuestion();
-    };
+    } else {
+        timerStop = true;
+        finalScore();
+    } 
 });
+
+
+function finalScore() {
+    startScreen.style.display = "none";
+    quizScreen.style.display = "none";
+    finalScoreScreen.style.display = "flex";
+    highScoreScreen.style.display = "none";
+    bg.style.background = "black";
+
+    finalScoreSpan.textContent = score;
+    
+    finalScoreForm.addEventListener("submit", function(event){
+        event.preventDefault();
+        initials = initialsInput.value;
+        highScoresList.push(initials + "-" + score);
+        highScores();
+    });
+};
+
+
+function highScores() {
+    startScreen.style.display = "none";
+    quizScreen.style.display = "none";
+    finalScoreScreen.style.display = "none";
+    highScoreScreen.style.display = "flex";
+
+    
+
+    console.log(highScoresList);
+ 
+};
 
