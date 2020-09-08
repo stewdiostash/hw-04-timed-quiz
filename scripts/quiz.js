@@ -1,38 +1,27 @@
 var bg = document.querySelector("body");
 var questionSpace = document.getElementById("question-space");
 var answerSpace = document.getElementById("answer-space");
-var timer = document.getElementById("timer");
-var secondsLeft = 60;
-
-function setTime() {
-    var timerInterval = setInterval(function() {
-      secondsLeft--;
-      timer.textContent = secondsLeft;
-  
-      if(secondsLeft === 0) {
-        clearInterval(timerInterval);
-        // sendMessage();
-      }
-  
-    }, 1000);
-  }
-
-  setTime()
-
-
 var quizIndex = 0;
+var timer = document.getElementById("timer");
+var secondsLeft = 61;
+var startButton = document.querySelector("button");
+
+var startScreen = document.getElementById("start-screen");
+var quizScreen = document.getElementById("quiz-screen");
+var finalScoreScreen = document.getElementById("final-score-screen");
+var highScoreScreen = document.getElementById("high-score-screen");
 
 var questionContent = [
     { 
         question: "Arrays in JavaScript can be used to store:",
         choices: [
-            "Strings",
-            "Arrays",
-            "Objects",
-            "Other arrays",
-            "All of the above",
+            "strings",
+            "srrays",
+            "objects",
+            "other arrays",
+            "all of the above",
         ],
-        answer: "All of the above",
+        answer: "all of the above",
     },
     { 
         question: "A useful tool for printing content to the debugger is:",
@@ -44,9 +33,50 @@ var questionContent = [
         ],
         answer: "console.log",
     },
+    { 
+        question: "Which of the following is not a commonly-used data type:",
+        choices: [
+            "strings",
+            "booleans",
+            "alerts",
+            "numbers",
+        ],
+        answer: "alerts",
+    },
+    { 
+        question: "The condition in an if/else statement is enclosed within:",
+        choices: [
+            "quotes",
+            "curly brackets",
+            "parentheses",
+            "square brackets",
+        ],
+        answer: "parentheses",
+    },
 ];
 
-// Start function
+quizScreen.style.display = "none";
+finalScoreScreen.style.display = "none";
+highScoreScreen.style.display = "none";
+
+function setTime() {
+    var timerInterval = setInterval(function() {
+      secondsLeft--;
+      timer.textContent = secondsLeft;
+  
+      if(secondsLeft === 0) {
+        clearInterval(timerInterval);
+        // sendMessage();
+      } 
+    }, 1000);
+  }
+
+startButton.addEventListener("click", function(){
+    startScreen.style.display = "none";
+    quizScreen.style.display = "flex";
+    newQuestion();
+    setTime(); 
+})
 
 
 // Call questions
@@ -65,7 +95,11 @@ function newQuestion() {
     }
 }
 
-newQuestion();
+function finalScore() {
+    
+}
+
+
 
 
 
