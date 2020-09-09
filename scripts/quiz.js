@@ -20,7 +20,8 @@ var finalScoreSpan = document.getElementById("final-score-span")
 
 var initials;
 var score;
-var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
+// var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
+var highScoresArray = [];
 var viewHighScores = document.getElementById("view-high-scores");
 
 var questionContent = [
@@ -165,12 +166,9 @@ function finalScore() {
     finalScoreForm.addEventListener("submit", function(event){
         event.preventDefault();
         initials = initialsInput.value;
-        console.log(highScoresArray)
         highScoresArray.unshift(initials + " - " + score);
-        console.log(highScoresArray)
         // localStorage["highScoresArray"] = JSON.stringify(highScoresArray); 
         localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
-        console.log(highScoresArray)
         highScores();
     });
 };
