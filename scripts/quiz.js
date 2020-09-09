@@ -164,6 +164,7 @@ function finalScore() {
     finalScoreSpan.textContent = score;
     
     finalScoreForm.addEventListener("submit", function(event){
+        highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
         event.preventDefault();
         initials = initialsInput.value;
         highScoresArray.unshift(initials + " - " + score);
