@@ -44,15 +44,24 @@ li {
 }
 
 
+
 /* General Styling */
 
 li {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.8);
     color: black;
     padding: 24px;
     margin-bottom: 8px;
     border-radius: 3px;
     list-style: none
+}
+
+li:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+li:active{
+    background: rgba(255, 255, 255, 1);
 }
 
 #timer-box {
@@ -79,6 +88,11 @@ input[type="text"] {
     height: 42px;
 }
 
+.badge {
+    opacity: .8;
+    font-weight: 600;
+}
+
 
 /* Flexbox */
 
@@ -99,6 +113,11 @@ Section,
 Header {
     align-items: center;
     justify-content: space-between;
+}
+
+Footer {
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -124,7 +143,7 @@ body {
     grid-template-areas:
         "... header ..."
         "... section ..."
-        "footer footer footer";
+        "... footer ...";
 }
 
 /* breakpoints */
@@ -136,7 +155,7 @@ body {
         grid-template-areas:
             "header header header"
             "... section ..."
-            "footer footer footer";
+            "... footer ...";
     }
 
     header {

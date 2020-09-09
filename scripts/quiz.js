@@ -11,6 +11,9 @@ var secondsLeft;
 var timerStop;
 var quizIndex;
 
+var badgeCorrect = document.getElementById("correct-badge");
+var badgeIncorrect = document.getElementById("incorrect-badge");
+
 var startScreen = document.getElementById("start-screen");
 var quizScreen = document.getElementById("quiz-screen");
 var finalScoreScreen = document.getElementById("final-score-screen");
@@ -85,6 +88,8 @@ function start(){
     highScoreScreen.style.display = "none";
     viewHighScores.style.display = "flex";
     timer.style.display = "none";
+    badgeCorrect.style.display = "none";
+    badgeIncorrect.style.display = "none";
 }
 
 startButton.addEventListener("click", function(){
@@ -116,9 +121,11 @@ function backToBlack() {
 
         if(secondsTilBlack === 0) {
             clearInterval(timerInterval);
+            badgeCorrect.style.display = "none";
+            badgeIncorrect.style.display = "none";
             bg.style.backgroundColor = "black";
           }     
-        }, 500);
+        }, 1000);
       }
 
 
@@ -139,10 +146,12 @@ function newQuestion() {
 answerSpace.addEventListener("click", function(event){
     if  (event.target.matches('li')) {
         if  (event.target.textContent === questionContent[quizIndex].answer) {
+            badgeCorrect.style.display = "flex";
             bg.style.background = "#12e095";  
             backToBlack();
         }
         if (event.target.textContent !== questionContent[quizIndex].answer) {
+            badgeIncorrect.style.display = "flex";
             bg.style.background = "#ff564a";
             backToBlack();
             secondsLeft = secondsLeft - 10;
