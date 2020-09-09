@@ -165,9 +165,12 @@ function finalScore() {
     finalScoreForm.addEventListener("submit", function(event){
         event.preventDefault();
         initials = initialsInput.value;
+        console.log(highScoresArray)
         highScoresArray.unshift(initials + " - " + score);
+        console.log(highScoresArray)
         // localStorage["highScoresArray"] = JSON.stringify(highScoresArray); 
         localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
+        console.log(highScoresArray)
         highScores();
     });
 };
