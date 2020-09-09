@@ -85,7 +85,7 @@ input[type="text"] {
 Header,
 Section,
 #answer-space,
-.button-row
+.button-row,
 Footer {
     Display: flex;
 }
@@ -120,7 +120,7 @@ body {
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1fr 14fr 1fr;
-    grid-template-rows: 160px 60vh 20vh;
+    grid-template-rows: 160px 1fr 160px;
     grid-template-areas:
         "... header ..."
         "... section ..."
@@ -132,7 +132,7 @@ body {
 @media only screen and (min-width: 768px) {
     body {
         grid-template-columns: 1fr 600px 1fr;
-        grid-template-rows: 160px 60vh 20vh;
+        grid-template-rows: 160px 1fr 160px;
         grid-template-areas:
             "header header header"
             "... section ..."
