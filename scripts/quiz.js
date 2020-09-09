@@ -1,23 +1,26 @@
 var bg = document.querySelector("body");
 var questionSpace = document.getElementById("question-space");
 var answerSpace = document.getElementById("answer-space");
-var quizIndex = 0;
 var timer = document.getElementById("timer");
-var secondsLeft = 61;
-var timerStop = false;
 var startButton = document.querySelector("button");
+var restartButton = document.getElementById("restart-button");
+var clearButton = document.getElementById("clear-button");
 var finalScoreForm = document.getElementById("final-score-form");
 var initialsInput = document.getElementById("initials-input");
+var secondsLeft;
+var timerStop;
+var quizIndex;
 
 var startScreen = document.getElementById("start-screen");
 var quizScreen = document.getElementById("quiz-screen");
 var finalScoreScreen = document.getElementById("final-score-screen");
 var highScoreScreen = document.getElementById("high-score-screen");
+var highScoreList = document.getElementById('high-score-list');
 var finalScoreSpan = document.getElementById("final-score-span")
 
 var initials;
 var score;
-var highScoresList = [];
+var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
 
 var questionContent = [
     { 
@@ -66,40 +69,50 @@ var questionContent = [
 start();
 
 function start(){
+    quizIndex = 0;
+    secondsLeft = 61; 
+    timerStop = false;
     startScreen.style.display = "flex";
     quizScreen.style.display = "none";
     finalScoreScreen.style.display = "none";
     highScoreScreen.style.display = "none";
+    timer.style.display = "none";
 }
 
 startButton.addEventListener("click", function(){
     startScreen.style.display = "none";
     quizScreen.style.display = "flex";
-    finalScoreScreen.style.display = "none";
-    highScoreScreen.style.display = "none";
+    timer.style.display = "flex";
     newQuestion();
-    setTime(); 
-});
+    gameTimer(); 
+}); 
 
-function setTime() {
-    var timerInterval = setInterval(function() {
+
+function gameTimer() {
+    var timerInterval = setInterval(function() { 
       secondsLeft--;
       timer.textContent = secondsLeft;
 
-      if(timerStop){
-        clearInterval(timerInterval);
-        console.log(secondsLeft);
-        score = secondsLeft;
-        } else if (secondsLeft === 0) {
+      if(timerStop || secondsLeft === 0){
         clearInterval(timerInterval);
         score = secondsLeft;
-        // sendMessage();
-        } 
+        finalScore();
+        }  
     }, 1000);
   }
 
+function backToBlack() {
+    var timerInterval = setInterval(function() {
+        var secondsTilBlack = 1;
+        secondsTilBlack--;
 
-// Call questions
+        if(secondsTilBlack === 0) {
+            clearInterval(timerInterval);
+            bg.style.backgroundColor = "black";
+          }     
+        }, 500);
+      }
+
 
 function newQuestion() {
     var currentQuestion = questionContent[quizIndex];
@@ -118,13 +131,13 @@ function newQuestion() {
 answerSpace.addEventListener("click", function(event){
     if  (event.target.matches('li')) {
         if  (event.target.textContent === questionContent[quizIndex].answer) {
-            bg.style.background = "#12e095";
-            
+            bg.style.background = "#12e095";  
+            backToBlack();
         }
         if (event.target.textContent !== questionContent[quizIndex].answer) {
             bg.style.background = "#ff564a";
-            // TODO: subtract 15s from timer
-            // timer.textContent = secondsLeft - 10;
+            backToBlack();
+            secondsLeft = secondsLeft - 10;
         }
     }
     if  (quizIndex < questionContent.length - 1) {
@@ -138,32 +151,44 @@ answerSpace.addEventListener("click", function(event){
 
 
 function finalScore() {
-    startScreen.style.display = "none";
     quizScreen.style.display = "none";
     finalScoreScreen.style.display = "flex";
-    highScoreScreen.style.display = "none";
-    bg.style.background = "black";
-
-    finalScoreSpan.textContent = score;
     
     finalScoreForm.addEventListener("submit", function(event){
         event.preventDefault();
         initials = initialsInput.value;
-        highScoresList.push(initials + "-" + score);
+        highScoresArray.unshift(initials + " - " + score);
+        // localStorage["highScoresArray"] = JSON.stringify(highScoresArray); 
+        localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
         highScores();
     });
 };
 
 
 function highScores() {
-    startScreen.style.display = "none";
-    quizScreen.style.display = "none";
     finalScoreScreen.style.display = "none";
     highScoreScreen.style.display = "flex";
-
+    timer.style.display = "none";
     
+    highScoreList.innerHTML = "";
 
-    console.log(highScoresList);
- 
+    for (var i = 0; i < highScoresArray.length; i++) {
+        var scoreRecord = highScoresArray[i];
+        var li = document.createElement('li');
+        li.textContent = scoreRecord;
+        highScoreList.append(li);
+    }
 };
+
+restartButton.onclick = function(){
+    start();
+}
+
+clearButton.onclick = function(){
+    highScoresArray.length = 0;
+    localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
+    highScores();
+}
+
+
 
