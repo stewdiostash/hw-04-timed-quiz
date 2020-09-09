@@ -21,6 +21,7 @@ var finalScoreSpan = document.getElementById("final-score-span")
 var initials;
 var score;
 var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
+var viewHighScores = document.getElementById("view-high-scores");
 
 var questionContent = [
     { 
@@ -68,6 +69,11 @@ var questionContent = [
 
 start();
 
+viewHighScores.onclick = function(){
+    startScreen.style.display = "none";
+    highScores();
+}
+
 function start(){
     quizIndex = 0;
     secondsLeft = 61; 
@@ -76,6 +82,7 @@ function start(){
     quizScreen.style.display = "none";
     finalScoreScreen.style.display = "none";
     highScoreScreen.style.display = "none";
+    viewHighScores.style.display = "flex";
     timer.style.display = "none";
 }
 
@@ -149,10 +156,11 @@ answerSpace.addEventListener("click", function(event){
     } 
 });
 
-
 function finalScore() {
     quizScreen.style.display = "none";
     finalScoreScreen.style.display = "flex";
+
+    finalScoreSpan.textContent = score;
     
     finalScoreForm.addEventListener("submit", function(event){
         event.preventDefault();
@@ -164,11 +172,11 @@ function finalScore() {
     });
 };
 
-
 function highScores() {
     finalScoreScreen.style.display = "none";
     highScoreScreen.style.display = "flex";
     timer.style.display = "none";
+    viewHighScores.style.display = "none";
     
     highScoreList.innerHTML = "";
 

@@ -18,7 +18,7 @@ h1 {
 
 h2 {
     font-size: 44px;
-    font-weight: 600;
+    font-weight: 400;
     margin-bottom: 30px;
 }
 
@@ -32,6 +32,7 @@ h4 {
     font-size: 22px;
     line-height: 1.4;
     font-weight: 200;
+    margin-bottom: 30px;
 }
 
 p {
@@ -64,6 +65,18 @@ button {
     height: 48px;
     font-size: 18px;
     font-weight: 400;
+}
+
+input {
+    margin: 10px 10px 0 0;
+    width: 160px;
+    height: 48px;
+    font-size: 18px;
+}
+
+input[type="text"] {
+    width: 300px;
+    height: 42px;
 }
 
 
