@@ -198,8 +198,7 @@ function highScores() {
     timer.style.display = "none";
     viewHighScores.style.display = "none";
 
-    // highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
-
+    highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
     highScoresArray.unshift(initials + " - " + score);
     localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
     
