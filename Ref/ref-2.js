@@ -3,7 +3,6 @@ var questionSpace = document.getElementById("question-space");
 var answerSpace = document.getElementById("answer-space");
 var timer = document.getElementById("timer");
 var startButton = document.querySelector("button");
-var submitButton = document.querySelector("submit-button");
 var restartButton = document.getElementById("restart-button");
 var clearButton = document.getElementById("clear-button");
 var finalScoreForm = document.getElementById("final-score-form");
@@ -24,7 +23,8 @@ var finalScoreSpan = document.getElementById("final-score-span")
 
 var initials;
 var score;
-var highScoresArray = [];
+// var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
+// var highScoresArray = [];
 var viewHighScores = document.getElementById("view-high-scores");
 
 var questionContent = [
@@ -106,12 +106,15 @@ function gameTimer() {
       secondsLeft--;
       timer.textContent = secondsLeft;
 
-      if(timerStop || secondsLeft === 0){
+      if(timerStop){
         clearInterval(timerInterval);
         score = secondsLeft;
-        console.log(score);
         finalScore();
-        }  
+        } else if (secondsLeft === 0){
+            clearInterval(timerInterval);
+            score = 0;
+            finalScore();
+            }  
     }, 1000);
   }
 
@@ -172,13 +175,18 @@ function finalScore() {
     finalScoreScreen.style.display = "flex";
 
     finalScoreSpan.textContent = score;
+
+    console.log(score);
     
     finalScoreForm.addEventListener("submit", function(event){
-        highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
-        event.preventDefault();
         initials = initialsInput.value;
-        highScoresArray.unshift(initials + " - " + score);
-        console.log(highScoresArray);
+        // event.preventDefault();
+        var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray")) || [];
+        var newScoreRecord = {
+            initials: initials,
+            score: score
+        }
+        highScoresArray.push(newScoreRecord);
         // localStorage["highScoresArray"] = JSON.stringify(highScoresArray); 
         localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
         highScores();
@@ -193,16 +201,20 @@ function highScores() {
     timer.style.display = "none";
     viewHighScores.style.display = "none";
     
-    highScoreList.innerHTML = "";
-
-    // var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
-
+    // highScoreList.innerHTML = "";
+    var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray")) || [];
     for (var i = 0; i < highScoresArray.length; i++) {
-        var scoreRecord = highScoresArray[i];
+        // var scoreRecord = highScoresArray[i];
         var li = document.createElement('li');
-        li.textContent = scoreRecord;
+        li.textContent = highScoresArray[i].initials + " - " + highScoresArray[i].score;
         highScoreList.append(li);
+        console.log(highScoreList);
     }
+    // highScoresArray.forEach (function(score){
+    //     var li = document.createElement('li');
+    //     li.textContent = score.initials + " - " + score.score;
+    //     highScoreList.append(li);
+    // }) 
 };
 
 restartButton.onclick = function(){
