@@ -198,7 +198,7 @@ function highScores() {
     timer.style.display = "none";
     viewHighScores.style.display = "none";
 
-    // highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
+    highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
 
     highScoreList.innerHTML = "";
 
@@ -215,8 +215,6 @@ function highScores() {
 
 // Restart
 restartButton.onclick = function(){
-    var initials;
-    var score;
     start();
 }
 
