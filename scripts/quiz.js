@@ -25,7 +25,7 @@ var finalScoreSpan = document.getElementById("final-score-span")
 
 var initials;
 var score;
-// var highScoresArray = [];
+var highScoresArray = [];
 // var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
 var viewHighScores = document.getElementById("view-high-scores");
 
@@ -198,9 +198,7 @@ function highScores() {
     timer.style.display = "none";
     viewHighScores.style.display = "none";
 
-    // var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
-    var highScoresArray = [];
-    highScoresArray.unshift(initials + " - " + score);
+    highScoresArray.push(initials + " - " + score);
     localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
     
     highScoreList.innerHTML = "";
