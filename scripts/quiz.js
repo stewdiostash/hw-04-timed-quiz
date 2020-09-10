@@ -24,7 +24,8 @@ var finalScoreSpan = document.getElementById("final-score-span")
 
 var initials;
 var score;
-var highScoresArray = [];
+var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
+// var highScoresArray = [];
 var viewHighScores = document.getElementById("view-high-scores");
 
 var questionContent = [
@@ -188,14 +189,16 @@ function highScores() {
     timer.style.display = "none";
     viewHighScores.style.display = "none";
     
-    highScoreList.innerHTML = "";
+    
+    
 
     highScoresArray.unshift(initials + " - " + score);
     localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
+    
+    highScoreList.innerHTML = "";
+    
 
-    // var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
-
-    for (var i = 0; i < highScoresArray.length-1; i++) {
+    for (var i = 0; i < highScoresArray.length; i++) {
         var scoreRecord = highScoresArray[i];
         var li = document.createElement('li');
         li.textContent = scoreRecord;
@@ -208,7 +211,7 @@ restartButton.onclick = function(){
 }
 
 clearButton.onclick = function(){
-    highScoresArray.length = 0;
+    highScoresArray = [];
     localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
     highScores();
 }
