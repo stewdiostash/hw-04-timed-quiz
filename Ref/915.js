@@ -177,9 +177,13 @@ function finalScore() {
         // highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
         event.preventDefault();
         initials = initialsInput.value;
+        highScoresArray.unshift(initials + " - " + score);
+        console.log(highScoresArray);
+        localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
         highScores();
     });
 };
+
 
 
 function highScores() {
@@ -190,12 +194,9 @@ function highScores() {
     
     highScoreList.innerHTML = "";
 
-    highScoresArray.unshift(initials + " - " + score);
-    localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
-
     // var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
 
-    for (var i = 0; i < highScoresArray.length-1; i++) {
+    for (var i = 0; i < highScoresArray.length; i++) {
         var scoreRecord = highScoresArray[i];
         var li = document.createElement('li');
         li.textContent = scoreRecord;
