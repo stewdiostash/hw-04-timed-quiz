@@ -1,8 +1,10 @@
+// variables
 var bg = document.querySelector("body");
 var questionSpace = document.getElementById("question-space");
 var answerSpace = document.getElementById("answer-space");
 var timer = document.getElementById("timer");
 var startButton = document.querySelector("button");
+var submitButton = document.querySelector("submit-button");
 var restartButton = document.getElementById("restart-button");
 var clearButton = document.getElementById("clear-button");
 var finalScoreForm = document.getElementById("final-score-form");
@@ -23,10 +25,11 @@ var finalScoreSpan = document.getElementById("final-score-span")
 
 var initials;
 var score;
-// var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
 var highScoresArray = [];
+// var highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
 var viewHighScores = document.getElementById("view-high-scores");
 
+// Question array of objects
 var questionContent = [
     { 
         question: "Arrays in JavaScript can be used to store:",
@@ -71,13 +74,16 @@ var questionContent = [
     },
 ];
 
+// Start 
 start();
 
+// Click to view High Scores table
 viewHighScores.onclick = function(){
     startScreen.style.display = "none";
     highScores();
 }
 
+// Set DOM for start
 function start(){
     quizIndex = 0;
     secondsLeft = 61; 
@@ -92,6 +98,8 @@ function start(){
     badgeIncorrect.style.display = "none";
 }
 
+
+// Start button starts timer and questions
 startButton.addEventListener("click", function(){
     startScreen.style.display = "none";
     quizScreen.style.display = "flex";
@@ -100,7 +108,7 @@ startButton.addEventListener("click", function(){
     gameTimer(); 
 }); 
 
-
+// Main 60 second timer
 function gameTimer() {
     var timerInterval = setInterval(function() { 
       secondsLeft--;
@@ -109,11 +117,13 @@ function gameTimer() {
       if(timerStop || secondsLeft === 0){
         clearInterval(timerInterval);
         score = secondsLeft;
+        console.log(score);
         finalScore();
         }  
     }, 1000);
   }
 
+// Secondary timer restores black BG after red/green flashes
 function backToBlack() {
     var timerInterval = setInterval(function() {
         var secondsTilBlack = 1;
@@ -128,7 +138,7 @@ function backToBlack() {
         }, 1000);
       }
 
-
+// Pulls questions for array of objects
 function newQuestion() {
     var currentQuestion = questionContent[quizIndex];
     var questionTitle = document.getElementById('question-title');
@@ -143,6 +153,7 @@ function newQuestion() {
     }
 }
 
+// Responses for right and wrong answers
 answerSpace.addEventListener("click", function(event){
     if  (event.target.matches('li')) {
         if  (event.target.textContent === questionContent[quizIndex].answer) {
@@ -166,6 +177,7 @@ answerSpace.addEventListener("click", function(event){
     } 
 });
 
+// Set DOM to record final score
 function finalScore() {
     quizScreen.style.display = "none";
     finalScoreScreen.style.display = "flex";
@@ -173,21 +185,23 @@ function finalScore() {
     finalScoreSpan.textContent = score;
     
     finalScoreForm.addEventListener("submit", function(event){
-        highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
         event.preventDefault();
         initials = initialsInput.value;
-        highScoresArray.unshift(initials + " - " + score);
-        // localStorage["highScoresArray"] = JSON.stringify(highScoresArray); 
-        localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
         highScores();
     });
 };
 
+// Set DOM to show highscore table
 function highScores() {
     finalScoreScreen.style.display = "none";
     highScoreScreen.style.display = "flex";
     timer.style.display = "none";
     viewHighScores.style.display = "none";
+
+    // highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
+
+    highScoresArray.unshift(initials + " - " + score);
+    localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
     
     highScoreList.innerHTML = "";
 
@@ -199,12 +213,14 @@ function highScores() {
     }
 };
 
+// Restart
 restartButton.onclick = function(){
     start();
 }
 
+// // Clear Scores
 // clearButton.onclick = function(){
-//     highScoresArray.length = 0;
+//     highScoresArray = [];
 //     localStorage.setItem("highScoresArray", JSON.stringify(highScoresArray));
 //     highScores();
 // }
